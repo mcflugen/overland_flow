@@ -1,0 +1,36 @@
+grid:
+  _type: raster_model_grid
+  from_file: iowa_square.asc
+  bc: 
+    upper: closed
+    lower: closed
+    left: closed
+    right: closed
+  # status_at_node:
+  # - [100, 1]
+fields:
+  at_node:
+    # topographic__elevation: 0.
+    soil_water_infiltration__depth: .001
+  at_link:
+    mannings_n: 0.055 # The minimum Manning's n roughness coefficient.
+clock:
+  start: 0.
+  stop: 86400. # units of seconds
+  step: 360.
+overland_flow:
+  steep_slopes: true
+  alpha: 0.15
+  mannings_n: 'mannings_n'
+  h_init: 0.00001
+flow_router:
+  method: d8
+  runoff_rate: 1.
+soil_infiltration_green_ampt:
+  hydraulic_conductivity:  0.0000025 # m/s. This is equal to 9 mm/hr
+  surface_water_minimum_depth: 0.00001
+  initial_soil_moisture_content: 0.35 # This MUST be less than porosity, which is defined as: 1 - (soil_bulk_density/rock_density)
+  soil_bulk_density: 1700. # kg / m3
+  rock_density: 2700. # kg / m3
+  soil_type: 'sand'
+  volume_fraction_coarse_fragments: 0.6

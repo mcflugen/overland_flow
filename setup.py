@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from distutils.extension import Extension
 
 import numpy as np
-import cython_gsl
+
 
 __version__ = '0.1'
 

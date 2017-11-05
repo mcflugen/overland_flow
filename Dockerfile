@@ -19,10 +19,16 @@ RUN apt-get install -y --fix-missing \
   vim \
   build-essential
 
+RUN useradd --create-home --shell /bin/bash csdms
+RUN echo 'csdms:dragon' | chpasswd
+
+USER csdms
+WORKDIR /home/csdms
+
 # Install Python and Basic Python Tools
 RUN curl https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh > miniconda.sh
-RUN /bin/bash ./miniconda.sh -b -f -p /usr/local/python
-ENV PATH=/usr/local/python/bin:$PATH
+RUN /bin/bash ./miniconda.sh -b -f -p /home/csdms/python
+ENV PATH=/home/csdms/python/bin:$PATH
 
 RUN conda config --add channels conda-forge
 RUN conda config --add channels csdms-stack
@@ -36,17 +42,15 @@ RUN conda install -q \
   matplotlib \
   ipython
 
-RUN useradd --create-home --shell /bin/bash csdms
-RUN echo 'csdms:dragon' | chpasswd
-
-USER csdms
-WORKDIR /home/csdms
-
 RUN git clone https://github.com/landlab/landlab && \
+  conda install --file=landlab/requirements.txt && \
   cd landlab && \
-  conda install --file=requirements.txt
+  python setup.py develop
 
-RUN git clone https://github.com/mcflugen/overland_flow
+RUN git clone https://github.com/mcflugen/overland_flow && \
+  cd overland_flow && \
+  python setup.py develop
 
-CMD cd landlab && git pull && python setup.py develop
-CMD cd overland_flow && git pull && python setup.py develop
+CMD cd /home/csdms/landlab && git pull && python setup.py develop && \
+  cd /home/csdms/overland_flow && git pull && python setup.py develop && \
+  /bin/bash

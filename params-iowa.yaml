@@ -6,17 +6,14 @@ grid:
     lower: closed
     left: closed
     right: closed
-  # status_at_node:
-  # - [100, 1]
 fields:
   at_node:
-    # topographic__elevation: 0.
     soil_water_infiltration__depth: .001
   at_link:
-    mannings_n: 0.055 # The minimum Manning's n roughness coefficient.
+    mannings_n: 0.055
 clock:
   start: 0.
-  stop: 86400. # units of seconds
+  stop: 86400.
   step: 360.
 overland_flow:
   steep_slopes: true

@@ -16,7 +16,7 @@ class OverlandFlowModel(RasterModel):
 
     DEFAULT_PARAMS = {
         'grid': {
-            'type': 'raster',
+            '_type': 'raster',
             'from_file': 'square_test_basin.asc',
         },
         'fields': {
@@ -43,6 +43,7 @@ class OverlandFlowModel(RasterModel):
             'rock_density': 2650.,
         },
         'rain_step_function': {
+            'start': 3600.,
             'duration': 3600.,
             'magnitude': 60. * 1e-3 / (60. * 60.),
         },

@@ -15,7 +15,7 @@ def depth_dependent_mannings_n(water_depth, min_mannings_n=0.06,
         Array of water depth values (m).
     min_mannings_n : float
         Minimum Manning's n coefficient for a given landscape,
-        following Chow, 1959. (s m^(-1./3.))
+        following Chow, 1959. (s m^-1./3.)
     index_flow_depth : float
         Flow depth above which it is assumed that Manning's n is
         constant. (m)

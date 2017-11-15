@@ -57,7 +57,7 @@ class RasterModel(object):
         for component in self._components:
             component.run_one_step(dt)
 
-    def run_one_step(self, dt=None, output=None):
+    def run_one_step(self, dt=None, output=None, names=None):
         """Run each component for one time step."""
         dt = dt or self.clock.step
 
@@ -65,16 +65,16 @@ class RasterModel(object):
         self.clock.advance(step=dt)
 
         if output:
-            write_raster_netcdf(output, self.grid, append=True)
+            write_raster_netcdf(output, self.grid, append=True, names=names)
 
-    def run(self, output=None):
+    def run(self, output=None, names=None):
         """Run the model until complete."""
         if output:
-            write_raster_netcdf(output, self.grid, append=False)
+            write_raster_netcdf(output, self.grid, append=False, names=names)
 
         try:
             while 1:
-                self.run_one_step(output=output)
+                self.run_one_step(output=output, names=names)
         except StopIteration:
             pass
 
@@ -83,7 +83,9 @@ class RasterModel(object):
         parser = argparse.ArgumentParser(*args, **kwds)
 
         parser.add_argument('file', nargs='?', help='model configuration file')
-        parser.add_argument('--output', help='output file')
+        parser.add_argument('--output', help='output netcdf file')
+        parser.add_argument('--fields', action='append', default=[],
+                            help='fields to write to netcdf file')
         parser.add_argument('--with-citations', action='store_true',
                             help='Print citations for components used')
         parser.add_argument('--verbose', action='store_true', help='be verbose')
@@ -116,7 +118,7 @@ class RasterModel(object):
             print(registry.format_citations())
 
         if not args.dry_run:
-            model.run(output=args.output)
+            model.run(output=args.output, names=args.fields or None)
 
             if args.plot:
                 imshow_grid(model.grid,

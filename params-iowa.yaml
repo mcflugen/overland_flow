@@ -1,6 +1,7 @@
 grid:
   _type: raster_model_grid
   from_file: iowa_square.asc
+  # from_file: iowa_square_srtm.asc
   bc: 
     upper: closed
     lower: closed
@@ -24,10 +25,14 @@ flow_router:
   method: d8
   runoff_rate: 1.
 soil_infiltration_green_ampt:
-  hydraulic_conductivity:  0.0000025 # m/s. This is equal to 9 mm/hr
+  hydraulic_conductivity:  0.0000025
   surface_water_minimum_depth: 0.00001
-  initial_soil_moisture_content: 0.35 # This MUST be less than porosity, which is defined as: 1 - (soil_bulk_density/rock_density)
-  soil_bulk_density: 1700. # kg / m3
-  rock_density: 2700. # kg / m3
+  initial_soil_moisture_content: 0.35
+  soil_bulk_density: 1700.
+  rock_density: 2700.
   soil_type: 'sand'
   volume_fraction_coarse_fragments: 0.6
+rain_step_function:
+  start: 0.
+  duration: 3600.
+  magnitude: 2.7e-5

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from distutils.extension import Extension
 
 import numpy as np
-import cython_gsl
+
 
 __version__ = '0.1'
 
@@ -28,7 +28,7 @@ setup(name='overlandflow',
       author='Eric Hutton',
       author_email='huttone@colorado.edu',
       url='https://github.com/mcflugen/overland_flow',
-      install_requires=read_requirements(),
+      # install_requires=read_requirements(),
       setup_requires=['setuptools', ],
       packages=find_packages(),
       entry_points={

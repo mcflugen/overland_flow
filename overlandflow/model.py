@@ -1,9 +1,9 @@
 import numpy as np
 import scipy
 
-from raster_model import RasterModel
-from rainstorm import RainStepFunction
-from mannings import DepthDependentManningsN
+from .raster_model import RasterModel
+from .rainstorm import RainStepFunction
+from .mannings import DepthDependentManningsN
 
 from landlab.components import (OverlandFlow, SoilInfiltrationGreenAmpt,
                                 FlowDirectorSteepest,

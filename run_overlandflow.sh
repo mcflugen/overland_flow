@@ -14,8 +14,9 @@ module purge
 WORKDIR="/projects/huttone/jobs"
 rundir="$WORKDIR/$SLURM_ARRAY_TASK_ID"
 
-FILES_TO_STAGE="params-iowa.yaml \
+FILES_TO_STAGE="\
   scripts/extract_infiltration.py \
+  data/params-iowa.yaml \
   data/iowa_square.asc \
   data/rain_days.csv"
 
